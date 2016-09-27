@@ -1,3 +1,7 @@
+from State import *
+from Grammar import *
+from Functions import *
+
 # Classe que define uma PRODUÇAO:
 class Production:
     def __init__(self, name, father):
@@ -7,7 +11,13 @@ class Production:
         self.symbol = None      # E o simbolo nao terminal da producao.
 
         splited = name.split(" ")
+        # Verifica se o primeiro simbolo eh terminal ou nao terminal:
         if len(splited[0]) > 2:
-            if splited[0] == "<" and splited[len(splited) - 1] == ">":
-                # Achou um estado
-                
+            self.destiny.append(self.father.father.returnState(splited[0])) # Funcao que retorna o estado correspondente ao simbolo nao terminal encontrado.
+            self.symbol = splited[1]
+        else:
+            self.symbol = splited[0]
+            if len(splited) > 1:
+                self.destiny.append(self.father.father.returnState(splited[1])) # Funcao que retorna o estado correspondente ao simbolo nao terminal encontrado.
+            else:
+                self.father.final = True
