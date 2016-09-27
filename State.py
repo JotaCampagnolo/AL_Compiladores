@@ -17,4 +17,8 @@ class State:
     def addProductions(self, generator):
         productions = generator.split(" | ")
         for i in productions:
-            self.addProduction(i)
+            # Verifica se eh £ produçao, se for, o estado vira final e a produçao nao eh adicionada:
+            if not (i == "£"):
+                self.addProduction(i)
+            else:
+                self.final = True
