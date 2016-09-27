@@ -6,11 +6,19 @@ from Functions import *
 #   inputs[0] eh a lista de tokens
 #   inputs[1] eh a lista de gramaticas brutas
 inputs = readInput("input.txt")
+grammars = []
 
-gramatica1 = Grammar("Gramatica 01", inputs[1][0])
-gramatica1.createGrammar()
-gramatica1.printGrammar()
+# Instanciaçao das gramaticas a partir da lista de TOKENS:
+for i in inputs[0]:
+    grammars.append(Grammar("Gramatica " + i, i))
 
-gramatica2 = Grammar("Gramatica 02", inputs[1][1])
-gramatica2.createGrammar()
-gramatica2.printGrammar()
+# Instanciaçao das gramaticas a partir da lista de GRAMATICAS:
+count = 1
+for i in inputs[1]:
+    grammars.append(Grammar("Gramatica " + str(count), i))
+    count += 1
+
+# Criaçao das GRAMATICAS (Classe Grammar):
+for i in grammars:
+    i.createGrammar()
+    i.printGrammar()

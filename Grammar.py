@@ -11,7 +11,7 @@ class Grammar:
         self.states = []
 
         if type(generator) == type("string"):
-            self.generator = tokenToGrammar(generator)       # Quando o parametro gerador for um token.
+            self.generator = self.tokenToGrammar(generator)       # Quando o parametro gerador for um token.
         elif type(generator) == type([]):
             self.generator = generator      # Quando o parametro gerador for uma gramatica.
 
@@ -52,3 +52,17 @@ class Grammar:
             if i.final:
                 print(" Final", end="")
             print()
+
+    # Funçao que converte um token (string) para uma gramatica:
+    def tokenToGrammar(self, token):
+        uid2 = firstn()
+        newGrammar = []
+        count = 1
+        for i in token:
+            newUID = next(uid2)
+            if not (count == len(token)):
+                newGrammar.append("<" + str(newUID) + "> ::= " + i + " <" + str(newUID + 1) + ">")
+            else:
+                newGrammar.append("<" + str(newUID) + "> ::= " + i)
+            count += 1
+        return newGrammar
