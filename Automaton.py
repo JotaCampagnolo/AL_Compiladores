@@ -11,7 +11,14 @@ class Automaton:
         self.states = grammar.states
         self.symbols = grammar.symbols
         self.printAutomaton()
-
+	
+	
+	def merge(self, automaton):
+		copyAutomaton = deepcopy(automaton)
+		pass
+		
+	
+	
     # Funçao que printa o AUTOMATO como tabela:
     def printAutomaton(self):
         tabela = []

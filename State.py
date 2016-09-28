@@ -22,3 +22,6 @@ class State:
                 self.addProduction(i)
             else:
                 self.final = True
+	
+	def merge(self, state):
+		pass
