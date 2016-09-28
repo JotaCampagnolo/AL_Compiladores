@@ -9,13 +9,16 @@ class Grammar:
     def __init__(self, name, generator):
         self.name = name        # Nome da gramatica (else, por exemplo).
         self.states = []
+        self.symbols = []
 
+        # Verifica o tipo do gerador passado como parametro:
         if type(generator) == type("string"):
             self.generator = self.tokenToGrammar(generator)       # Quando o parametro gerador for um token.
         elif type(generator) == type([]):
             self.generator = generator      # Quando o parametro gerador for uma gramatica.
 
         self.grammarTable = []
+        self.createGrammar()
 
     def createGrammar(self):
         global uid

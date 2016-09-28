@@ -15,8 +15,14 @@ class Production:
         if len(splited[0]) > 2:
             self.destiny.append(self.father.father.returnState(splited[0])) # Funcao que retorna o estado correspondente ao simbolo nao terminal encontrado.
             self.symbol = splited[1]
+            # Verifica se o symbolo ja esta na lista de simbolos da Gramatica:
+            if self.symbol not in self.father.father.symbols:
+                self.father.father.symbols.append(self.symbol)
         else:
             self.symbol = splited[0]
+            # Verifica se o symbolo ja esta na lista de simbolos da Gramatica:
+            if self.symbol not in self.father.father.symbols:
+                self.father.father.symbols.append(self.symbol)
             if len(splited) > 1:
                 self.destiny.append(self.father.father.returnState(splited[1])) # Funcao que retorna o estado correspondente ao simbolo nao terminal encontrado.
             else:
