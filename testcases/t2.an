@@ -1,0 +1,5 @@
+Automato da Gramatica 1
+*     |a     |b     |
+<4>   |<5>   |<6>   |
+<5>   |#     |#     | FINAL|
+<6>   |#     |#     | FINAL|
