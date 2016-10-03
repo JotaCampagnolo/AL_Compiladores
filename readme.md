@@ -1,3 +1,11 @@
+Para executar o programa, digite o comando:
+$ python3 Main.py
+
+Para mudar a entrada, modifique o arquivo input.txt
+
+
+Testes:
+
 Para adicionar casos de teste, crie dois arquivos (entrada e resposta), no
 seguinte padrão:
     arq_de_entrada.in:
