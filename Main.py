@@ -27,3 +27,6 @@ for i in grammars:
 # Instanciaçao dos Automatos:
 for i in grammars:
     automatons.append(Automaton("Automato da " + i.name, i))
+
+for i in automatons:
+    print(i)

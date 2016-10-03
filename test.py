@@ -2,9 +2,12 @@ from Grammar import *
 from State import *
 from Production import *
 from Automaton import *
-from Functions import *
 import subprocess
-import os
+import sys
+
+a = sys.argv[1]
+b = sys.argv[2]
+
 
 def testa(file_name1, file_name2):
 	#	Abre o arquivo de teste
@@ -34,15 +37,11 @@ def testa(file_name1, file_name2):
 
 	for i in an:
 		resp += i
-	
+
 	if resp == ans:
 		print("Teste de", file_name1, "passou no teste")
 	else:
-		print("Teste de", file_name1, "reprovou no teste")
+		print("Teste de", file_name1, "reprovou no teste *")
 
 
-
-tests = [("testcases/t1.in", "testcases/t1.an"),
-		 ("testcases/t2.in", "testcases/t2.an")]
-for i in tests:
-	testa(i[0], i[1])
+testa(a, b)

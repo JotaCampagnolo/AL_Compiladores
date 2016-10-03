@@ -1,16 +1,4 @@
-6
-if
-elseif
-else
-while
-for
-break
-<S> ::= a <A> | b <B> | c <C>
+0
+<S> ::= a <A> | b <B>
 <A> ::= a <A> | a
-<B> ::= b <C>
-<C> ::= c <C> | c
-
-<S> ::= 0 <T> | 1 <U> | 1
-<T> ::= 1 <A>
-<U> ::= 0 <T> | £
-<A> ::= 2 <A> | 2
+<B> ::= b
