@@ -1,0 +1,4 @@
+Automato da Gramatica 1
+*     |a     |b     |
+1     |2     |2     | FINAL|
+2     |-     |-     | FINAL|
