@@ -2,6 +2,10 @@ from State import *
 from Grammar import *
 from Functions import *
 
+	#######
+	## £ ##
+	#######
+
 # Classe que define uma PRODUÇAO:
 class Production:
 	def __init__(self, name, father):
