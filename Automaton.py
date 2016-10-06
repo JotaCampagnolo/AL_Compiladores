@@ -8,13 +8,52 @@ class Automaton:
 	def __init__(self, name, grammar):
 		self.name = name
 		self.grammar = grammar
-		self.states = grammar.states
+		self.states = self.grammar.states
 		self.symbols = grammar.symbols
-		self.printAutomaton()
+		self.finalState = State("", next(uid), self.grammar)
+		self.finalState.final = True
+		self.states.append(self.finalState)
+		self.inicializa()
+		self.mergeIqualProductions()
+		
 
 	def __str__(self):
 		return self.printAutomaton()
-
+	
+	def inicializa(self):
+		c = 0
+		while c < len(self.states):
+			if self.states[c].final:
+				a = 0
+				while a < len(self.states[c].productions): # Percorre todas as produções dos estados que são finais
+					if not self.states[c].productions[a].destiny: # Se a produção não tiver destino
+						self.states[c].productions[a].destiny.append(self.finalState)
+					a += 1
+			c += 1
+	
+	# Função para mesclar produções iguais no mesmo estado. 
+	#	Ex.: a <A> | a <B>  ---> a <A> <B>
+	def mergeIqualProductions(self):
+		c = 0
+		while c < len(self.states):
+			v = 0
+			while v < len(self.states[c].productions):
+				# v2 está um índice a frente de v.
+				v2 = v + 1
+				### MUDAR A COMPARAÇÂO PORQUE QUANDO DA O POP MUDA O TAMANHO DA LISTA DE PRODUÇÔES ###
+				while v2 < len(self.states[c].productions):
+					# Se as duas produções tem symbol igual, mescla os destinos na primeira produção (v)
+					# e remove da lista de produções a segunda produção (v2), para não repetir.
+					if self.states[c].productions[v].symbol == self.states[c].productions[v2].symbol:
+						self.states[c].productions[v].mergeProduction(self.states[c].productions[v2])
+						self.states[c].productions.pop(v2)
+						v2 -= 1
+					v2 += 1
+				v += 1
+				
+			c += 1
+	
+	
 	# Funçao que printa o AUTOMATO como tabela:
 	def printAutomaton(self):
 		PRINT = ""
@@ -31,13 +70,14 @@ class Automaton:
 			while cond:
 				count = 0
 				for k in self.symbols:
-					if i.productions[c].symbol == k:
-						if i.productions[c].destiny:
-							dest = ""
-							for p in i.productions[c].destiny:
-								dest += str(p.uid) + " "
-							newLine[count+1] = dest
-					count += 1
+					if i.productions: # Se não for o estado terminal vazio
+						if i.productions[c].symbol == k:
+							if i.productions[c].destiny:
+								dest = ""
+								for p in i.productions[c].destiny:
+									dest += str(p.uid) + " "
+								newLine[count+1] = dest
+						count += 1
 				c += 1
 				if c > len(i.productions)-1:
 					cond = False

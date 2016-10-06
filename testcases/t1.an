@@ -1,5 +1,6 @@
 Automato da Gramatica 1
 *     |a     |b     |
 1     |2     |3     |
-2     |2     |-     | FINAL|
-3     |-     |3     | FINAL|
+2     |2 4   |-     | FINAL|
+3     |-     |3 4   | FINAL|
+4     |-     |-     | FINAL|
