@@ -20,6 +20,7 @@ class Grammar:
         self.grammarTable = []
         self.createGrammar()
 
+
     def createGrammar(self):
         global uid
 

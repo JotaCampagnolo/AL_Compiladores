@@ -10,6 +10,7 @@ inputs = readInput("input.txt")
 grammars = []
 automatons = []
 
+
 # Instanciaçao das gramaticas a partir da lista de TOKENS:
 for i in inputs[0]:
     grammars.append(Grammar("Gramatica " + i, i))
@@ -28,5 +29,12 @@ for i in grammars:
 for i in grammars:
     automatons.append(Automaton("Automato da " + i.name, i))
 
+h = automatons[0]
+
+# se der algo errado, foi aqui
 for i in automatons:
     print(i)
+    if i != h:
+        h += i
+
+print(h)

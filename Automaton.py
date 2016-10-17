@@ -10,16 +10,36 @@ class Automaton:
 		self.grammar = grammar
 		self.states = self.grammar.states
 		self.symbols = grammar.symbols
-		self.finalState = State("", next(uid), self.grammar)
-		self.finalState.final = True
-		self.states.append(self.finalState)
+		self.finalStates = [(State("", next(uid), self.grammar), self)]
+		self.finalStates[0][0].final = True
+		self.states.append(self.finalStates[0][0])
 		self.inicializa()
 		self.mergeIqualProductions()
-		
+
 
 	def __str__(self):
 		return self.printAutomaton()
-	
+
+	def __add__(self, b):
+		c = deepcopy(self)
+		d = deepcopy(b)
+
+		k = 0
+		while k < len(d.states[0].productions):
+			c.states[0].productions.append(d.states[0].productions[k])
+			k += 1
+
+		k = 1
+		while k < len(d.states):
+			c.states.append(d.states[k])
+			k += 1
+
+		c.mergeIqualProductions()
+		c.finalStates += d.finalStates
+
+		return c
+
+
 	def inicializa(self):
 		c = 0
 		while c < len(self.states):
@@ -27,11 +47,11 @@ class Automaton:
 				a = 0
 				while a < len(self.states[c].productions): # Percorre todas as produções dos estados que são finais
 					if not self.states[c].productions[a].destiny: # Se a produção não tiver destino
-						self.states[c].productions[a].destiny.append(self.finalState)
+						self.states[c].productions[a].destiny.append(self.finalStates[0][0])
 					a += 1
 			c += 1
-	
-	# Função para mesclar produções iguais no mesmo estado. 
+
+	# Função para mesclar produções iguais no mesmo estado.
 	#	Ex.: a <A> | a <B>  ---> a <A> <B>
 	def mergeIqualProductions(self):
 		c = 0
@@ -50,10 +70,43 @@ class Automaton:
 						v2 -= 1
 					v2 += 1
 				v += 1
-				
+
 			c += 1
-	
-	
+
+
+
+
+
+	def determinization(self):
+		global uid
+		dic = {}
+		dic["a b"] = JIOSAHDOISA
+		c0 = 0
+		while c0 < len(self.states):
+			c1 = 0
+			while c1 < len(self.states[c0].productions):
+				if len(self.states[c0].productions[c1].destiny) > 1:	# Achou um indeterminismo, porra
+					c2 = 0
+					while c2 < len(self.states[c0].productions[c1].destiny):
+						d += self.states[c0].productions[c1].destiny[c2].name
+						if d in dic:
+							pass
+						else:
+							pass
+						c2 += 1
+				c1 += 1
+			c0 += 1
+
+
+
+
+
+
+
+
+
+
+
 	# Funçao que printa o AUTOMATO como tabela:
 	def printAutomaton(self):
 		PRINT = ""
@@ -89,6 +142,6 @@ class Automaton:
 		PRINT += self.name + "\n"
 		for i in tabela:
 			for j in i:
-				PRINT += ("{:6}".format(j) + "|")
+				PRINT += ("{:10}".format(j) + "|")
 			PRINT += "\n"
 		return PRINT
