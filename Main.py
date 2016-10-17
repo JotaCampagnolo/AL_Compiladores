@@ -38,3 +38,7 @@ for i in automatons:
         h += i
 
 print(h)
+
+h.determinization()
+
+print(h)

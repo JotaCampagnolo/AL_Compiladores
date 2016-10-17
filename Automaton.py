@@ -80,20 +80,33 @@ class Automaton:
 	def determinization(self):
 		global uid
 		dic = {}
-		dic["a b"] = JIOSAHDOISA
 		c0 = 0
 		while c0 < len(self.states):
 			c1 = 0
 			while c1 < len(self.states[c0].productions):
-				if len(self.states[c0].productions[c1].destiny) > 1:	# Achou um indeterminismo, porra
-					c2 = 0
+				if len(self.states[c0].productions[c1].destiny) > 1:	# Achou um indeterminismo
+					'''c2 = 1
+
+					novo = deepcopy(self.states[c0].productions[c1].destiny[0])
+					novo.uid = next(uid)
+
+					print("novo.uid:", novo.uid)
+
+					d = ""
 					while c2 < len(self.states[c0].productions[c1].destiny):
-						d += self.states[c0].productions[c1].destiny[c2].name
-						if d in dic:
-							pass
-						else:
-							pass
+						d += str(self.states[c0].productions[c1].destiny[c2].uid)
+						novo.merge(self.states[c0].productions[c1].destiny[c2])
+						print(c2)
 						c2 += 1
+
+					if d not in dic:
+						dic[d] = novo
+						self.states.append(novo)
+						self.states[c0].productions[c1].destiny = []
+						self.states[c0].productions[c1].destiny.append(dic[d])
+					else:
+						self.states[c0].productions[c1].destiny = []
+						self.states[c0].productions[c1].destiny.append(dic[d])'''
 				c1 += 1
 			c0 += 1
 

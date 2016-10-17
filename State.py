@@ -1,6 +1,7 @@
 from Production import *
 from Grammar import *
 from Functions import *
+from copy import *
 
 # Classe que define um ESTADO:
 class State:
@@ -24,5 +25,26 @@ class State:
 			else:
 				self.final = True
 
+
 	def merge(self, state):
-		pass
+		c = 0
+		while c < len(state.productions):
+			self.productions.append(state.productions[c])
+			c += 1
+
+		if state.final:
+			self.final = True
+		self.mergeIqualProductions()
+
+
+	def mergeIqualProductions(self):
+		v = 0
+		while v < len(self.productions):
+			v2 = v + 1
+			while v2 < len(self.productions):
+				if self.productions[v].symbol == self.productions[v2].symbol:
+					self.productions[v].mergeProduction(self.productions[v2])
+					self.productions.pop(v2)
+					v2 -= 1
+				v2 += 1
+			v += 1

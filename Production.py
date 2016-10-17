@@ -31,10 +31,11 @@ class Production:
 				self.destiny.append(self.father.father.returnState(splited[1])) # Funcao que retorna o estado correspondente ao simbolo nao terminal encontrado.
 			else:
 				self.father.final = True
-    
+
     # Função para mesclar produções. Adiciona no seu destino os destinos
     # da produção passada por parâmetro
 	def mergeProduction(self, prod):
-		for i in prod.destiny:
-			self.destiny.append(i)
-			
+		c = 0
+		while c < len(prod.destiny):
+			self.destiny.append(prod.destiny[c])
+			c += 1
