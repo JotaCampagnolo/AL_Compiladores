@@ -36,9 +36,10 @@ for i in automatons:
     print(i)
     if i != h:
         h += i
-
+print("Automato ANTES de determinizar")
 print(h)
 
 h.determinization()
 
+print("Automato DEPOIS de determinizar")
 print(h)

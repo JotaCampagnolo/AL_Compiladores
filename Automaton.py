@@ -16,12 +16,22 @@ class Automaton:
 		self.inicializa()
 		self.mergeIqualProductions()
 
+		ff = 0
+		while ff < len(self.states):
+			gg = 0
+			while gg < len(self.states[ff].productions):
+				if self.states[ff].productions[gg].destiny:
+					self.states[ff].final = False
+					gg = len(self.states[ff].productions) + 1
+				gg += 1
+			ff += 1
+
 
 	def __str__(self):
 		return self.printAutomaton()
 
 	def __add__(self, b):
-		c = deepcopy(self)
+		'''c = deepcopy(self)
 		d = deepcopy(b)
 
 		k = 0
@@ -35,6 +45,28 @@ class Automaton:
 			k += 1
 
 		c.mergeIqualProductions()
+		c.finalStates += d.finalStates
+
+		return c
+		'''
+
+		c = deepcopy(self)
+		d = deepcopy(b)
+
+		k = 1
+		while k < len(d.states):
+			c.states.append(d.states[k])
+			k += 1
+
+		c.states[0].merge(d.states[0])
+
+		for i in c.symbols:
+			for j in d.symbols:
+				if i != j and j not in c.symbols:
+					c.symbols.append(j)
+
+		c.mergeIqualProductions()
+
 		c.finalStates += d.finalStates
 
 		return c
@@ -85,19 +117,30 @@ class Automaton:
 			c1 = 0
 			while c1 < len(self.states[c0].productions):
 				if len(self.states[c0].productions[c1].destiny) > 1:	# Achou um indeterminismo
-					'''c2 = 1
-
 					novo = deepcopy(self.states[c0].productions[c1].destiny[0])
 					novo.uid = next(uid)
 
-					print("novo.uid:", novo.uid)
+					ddd = 0
+					while ddd < len(novo.productions):
+						fff = 0
+						while fff < len(novo.productions[ddd].destiny):
+							if novo.productions[ddd].destiny[fff] == novo:
+								novo.productions[ddd].destiny[fff] = self.states[c0].productions[c1].destiny[0]
+							else:
+								pass
+							fff += 1
+						ddd += 1
 
 					d = ""
+					c2 = 1
 					while c2 < len(self.states[c0].productions[c1].destiny):
 						d += str(self.states[c0].productions[c1].destiny[c2].uid)
 						novo.merge(self.states[c0].productions[c1].destiny[c2])
-						print(c2)
 						c2 += 1
+
+
+					for i in dic:
+						print(i)
 
 					if d not in dic:
 						dic[d] = novo
@@ -106,7 +149,10 @@ class Automaton:
 						self.states[c0].productions[c1].destiny.append(dic[d])
 					else:
 						self.states[c0].productions[c1].destiny = []
-						self.states[c0].productions[c1].destiny.append(dic[d])'''
+						self.states[c0].productions[c1].destiny.append(dic[d])
+					novo = None
+					print(self)
+
 				c1 += 1
 			c0 += 1
 

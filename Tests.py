@@ -27,6 +27,6 @@ print("Total de erros:", len(erros))
 print("Total de acertos:", len(acertos))
 
 if erros:
-    print("Testes que não passaram:")
+    print("Testes que nao passaram:")
     for i in erros:
         print(i)

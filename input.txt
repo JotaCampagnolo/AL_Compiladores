@@ -1,6 +1,6 @@
-0
-<S> ::= a <A>
-<A> ::= a <A> | a
+2
+else
+elseif
 
-<S> ::= a <A> | b <A>
+<S> ::= a <A>
 <A> ::= a <A> | a
